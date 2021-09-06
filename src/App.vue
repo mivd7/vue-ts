@@ -1,27 +1,41 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <div>
+    <p ref="paragraph">{{name}} ({{age}})</p>
+    <button @click="changeName('new name')">Give it a new name</button>
+    <button @click="changeAge(31)">Age is just a number (or a string)</button>
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+import { defineComponent, reactive, ref, toRefs } from 'vue';
+import IJob from './types/job';
 
 export default defineComponent({
   name: 'App',
-  components: {
-    HelloWorld
+  components: {},
+  setup() {
+    const state = reactive({
+      name: 'MIVD',
+      age: 25 as number | string
+    })
+
+    const refAge = ref<number | string>('yes');
+
+    return {
+      ...toRefs(state)
+    }
+  },
+  methods: {
+    changeName(name: string) {
+      this.name = name;
+    },
+    changeAge(age: number | string) {
+      this.age = age;
+    }
   }
 });
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
