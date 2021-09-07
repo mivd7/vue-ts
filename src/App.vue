@@ -3,7 +3,6 @@
     <button @click="handleClick('title')">Order by title</button>
     <button @click="handleClick('location')">Order by location</button>
     <button @click="handleClick('salary')">Order by salary</button>
-    <button @click="handleClick('salary')">Order by salary</button>
     <job-list :jobs="jobs" :orderBy="orderTerm"/>
     <h2>And now for something completely different</h2>
     <counter/>
@@ -22,11 +21,13 @@ export default defineComponent({
   name: 'App',
   components: { JobList, Counter },
   setup() {
-    const { state, getters } = useStore();
+    const { state, getters, dispatch } = useStore();
+    dispatch('getJobs', jobData);
+
     const orderTerm = ref<OrderTerm>('title');
 
     const handleClick = (term: OrderTerm) => {
-      orderTerm.value = term
+      dispatch('filterJobs', term)
     }
 
     return {
@@ -35,10 +36,6 @@ export default defineComponent({
       handleClick,
       highPayingJobs: computed(() => getters.highPayingJobs) 
     }
-  },
-  mounted() {
-    const { dispatch } = useStore();
-    dispatch('getJobs', jobData);
   }
 });
 </script>

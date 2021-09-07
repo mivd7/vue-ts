@@ -10,6 +10,7 @@ export const store = createStore<IState>({
     jobs
   }
 });
+
 export const key: InjectionKey<Store<IState>> = Symbol();
 
 export function useStore() {

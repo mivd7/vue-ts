@@ -2,7 +2,7 @@
     <div class="job-list">
         <p>Ordered by: {{orderBy}}</p>
         <ul>
-            <li v-for="job in orderedJobs" :key="job.id">
+            <li v-for="job in jobs" :key="job.id">
                 <h2>{{job.title}} @ {{job.location}}</h2>
                 <div class="salary">
                     <p>{{job.salary}} oeigoeren</p>
@@ -25,7 +25,7 @@
 <script lang="ts">
 import IJob from '@/types/job'
 import OrderTerm from '@/types/order-term'
-import { computed, defineComponent, PropType } from 'vue'
+import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
     props: {
@@ -36,17 +36,6 @@ export default defineComponent({
         orderBy: {
             required: true,
             type: String as PropType<OrderTerm>
-        }
-    },
-    setup(props) {
-        const orderedJobs = computed(() => {
-            return [...props.jobs].sort((a: IJob, b: IJob) => {
-                return a[props.orderBy] > b[props.orderBy] ? 1 : -1;
-            })
-        })
-
-        return {
-            orderedJobs
         }
     }
 })
