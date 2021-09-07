@@ -1,17 +1,21 @@
 <template>
-  <div v-for="job in jobs" :key="job.id">
-    <h2>{{job.title}}</h2>
-    <p>{{job.location}}</p>
+  <div class="app">
+    <button @click="handleClick('title')">Order by title</button>
+    <button @click="handleClick('location')">Order by location</button>
+    <button @click="handleClick('salary')">Order by salary</button>
+    <job-list :jobs="jobs" :orderBy="orderTerm"/>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import JobList from './components/JobList.vue';
 import IJob from './types/job';
+import OrderTerm from './types/order-term';
 
 export default defineComponent({
   name: 'App',
-  components: {},
+  components: { JobList },
   setup() {
     const jobs = ref<IJob[]>([
       {
@@ -25,14 +29,38 @@ export default defineComponent({
         title: 'Muntjespoetser',
         location: 'Duckstad',
         salary: 0.01
+      },
+      {
+        id: '3',
+        title: 'Tea Maker',
+        location: 'BBC',
+        salary: 1000
+      },
+      {
+        id: '4',
+        title: 'Assistent Neuspeuteraar',
+        location: 'Luilekkerland',
+        salary: 500
+      },
+      {
+        id: '5',
+        title: 'Mail order bride',
+        location: 'Bangkok',
+        salary: 3000
       }
     ])
-    return {
-      jobs
-    }
-  }, 
-  methods: {
 
+    const orderTerm = ref<OrderTerm>('title');
+
+    const handleClick = (term: OrderTerm) => {
+      orderTerm.value = term
+    }
+
+    return {
+      jobs,
+      orderTerm,
+      handleClick
+    }
   }
 });
 </script>
