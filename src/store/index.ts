@@ -2,9 +2,6 @@ import { InjectionKey } from 'vue';
 import { createStore, Store, StoreOptions, useStore as baseUseStore } from 'vuex'
 import { State } from '@/types/store'
 
-// define your typings for the store state
-export const key: InjectionKey<Store<State>> = Symbol();
-
 const options: StoreOptions<State> = {
   state: {
     count: 0
@@ -30,9 +27,11 @@ const options: StoreOptions<State> = {
     currentCount: state => state.count
   }
 }
+// define your typings for the store state
+export const key: InjectionKey<Store<State>> = Symbol();
 
 export const store = createStore<State>(options);
 
-export function useStore () {
+export function useStore() {
   return baseUseStore(key)
 }
