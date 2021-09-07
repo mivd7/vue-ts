@@ -1,5 +1,5 @@
 import { InjectionKey } from 'vue';
-import { createStore, Store, StoreOptions } from 'vuex'
+import { createStore, Store, StoreOptions, useStore as baseUseStore } from 'vuex'
 import { State } from '@/types/store'
 
 // define your typings for the store state
@@ -31,4 +31,8 @@ const options: StoreOptions<State> = {
   }
 }
 
-export const store = createStore<State>(options)
+export const store = createStore<State>(options);
+
+export function useStore () {
+  return baseUseStore(key)
+}
