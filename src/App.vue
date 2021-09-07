@@ -23,10 +23,10 @@ export default defineComponent({
   setup() {
     const { state, getters, dispatch } = useStore();
     dispatch('getJobs', jobData);
-
     const orderTerm = ref<OrderTerm>('title');
 
     const handleClick = (term: OrderTerm) => {
+      orderTerm.value = term;
       dispatch('filterJobs', term)
     }
 

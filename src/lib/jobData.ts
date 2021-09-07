@@ -1,4 +1,6 @@
-const jobData = [
+import IJob from "@/types/job";
+
+const jobData: IJob[] = [
     {
       id: '1',
       title: 'Front End Dev',
@@ -28,6 +30,12 @@ const jobData = [
       title: 'Mail order bride',
       location: 'Bangkok',
       salary: 3000
+    },
+    {
+      id: '6',
+      title: 'Lumberjack',
+      location: 'The Lark',
+      salary: 5000
     }
 ];
 
