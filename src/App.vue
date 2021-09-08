@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import JobList from './components/JobList.vue';
 import Counter from './components/Counter.vue';
 import OrderTerm from './types/order-term';
@@ -21,8 +21,11 @@ export default defineComponent({
   name: 'App',
   components: { JobList, Counter },
   setup() {
+    onMounted(() => {
+      dispatch('getJobs', jobData);
+    })
+
     const { state, getters, dispatch } = useStore();
-    dispatch('getJobs', jobData);
     const orderTerm = ref<OrderTerm>('title');
 
     const handleClick = (term: OrderTerm) => {
@@ -39,7 +42,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style>
-
-</style>
